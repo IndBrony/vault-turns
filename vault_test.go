@@ -2,6 +2,7 @@ package vaultturns
 
 import (
 	"strconv"
+	"strings"
 	"testing"
 )
 
@@ -26,6 +27,11 @@ func TestVaultTurnsString(t *testing.T) {
 
 }
 
+func TestVaultTurnsModified(t *testing.T) {
+	templateTestVaultTurnsModified(t, "qwert", strings.Split("qwertyuiop", ""), 0)
+	templateTestVaultTurnsModified(t, "rqoqre", strings.Split("qwertyuiop", ""), 3)
+}
+
 func templateTestVaultTurns(t *testing.T, nums []int, expectedReturn int) {
 	actual := VaultTurns(nums)
 	if expectedReturn != actual {
@@ -37,5 +43,12 @@ func templateTestVaultTurnsString(t *testing.T, nums string, expectedReturn int,
 	actual, actualErr := VaultTurnsString(nums)
 	if expectedReturn != actual {
 		t.Errorf("testing fail, expected return : %v and error : %s but got %v and %s", expectedReturn, expectedError, actual, actualErr)
+	}
+}
+
+func templateTestVaultTurnsModified(t *testing.T, key string, vaultKeys []string, expected int) {
+	actual := VaultTurnsModified(key, vaultKeys)
+	if expected != actual {
+		t.Errorf("testing fail, expected : %v but got %v", expected, actual)
 	}
 }
